@@ -5,3 +5,11 @@
 .body {
   background-image: linear-gradient(#c7d2ec, #a1a7d5);
 }
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}

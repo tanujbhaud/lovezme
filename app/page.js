@@ -1,6 +1,68 @@
+"use client";
+import { useRef } from "react";
+import { Fragment } from "react";
 import Image from "next/image";
-
+import Expired from "./components/expired";
+import Live from "./components/live";
+import Next from "./components/next";
+import Later from "./components/later";
 export default function Home() {
+  const sliderRef = useRef();
+  const slideLeft = () => {
+    let slider = sliderRef.current;
+    slider.scrollLeft = slider.scrollLeft - 500;
+  };
+  const slideRight = () => {
+    let slider = sliderRef.current;
+    slider.scrollLeft = slider.scrollLeft + 500;
+  };
+  const mockData = [
+    {
+      type: "expired",
+      id: "218485",
+      uppayout: 1.1,
+      downpayout: 3.45,
+      ltpcl: 240.9512,
+      lockedPrize: 232.1235,
+      prizePool: 7.123,
+
+      change: +0.1291,
+    },
+    {
+      type: "expired",
+      id: "218486",
+      uppayout: 1.75,
+      downpayout: 2.32,
+      ltpcl: 228.9473,
+      lockedPrize: 229.5264,
+      prizePool: 5.427,
+
+      change: -0.5791,
+    },
+    {
+      type: "live",
+      id: "218487",
+      uppayout: 2.15,
+      downpayout: 1.87,
+      ltpcl: 228.5332,
+      lockedPrize: 228.9473,
+      prizePool: 8.5143,
+      change: -0.4141,
+    },
+    {
+      type: "next",
+      id: "218488",
+      uppayout: 1.35,
+      downpayout: 3.84,
+      prizePool: 2.376,
+    },
+
+    {
+      type: "later",
+      id: "218489",
+      entry: "01:35",
+    },
+  ];
   return (
     <div className="body w-[100vw] h-[100%]">
       <div
@@ -15,13 +77,18 @@ export default function Home() {
 
         <div className="ml-[35px]">
           <div className="bg-white p-4 rounded-full h-5 absolute w-[125px] top-14 ">
-            <img className="absolute h-5  top-[0.4em] left-2" src="left.png" />{" "}
+            <img
+              onClick={slideLeft}
+              className="absolute h-5  cursor-pointer top-[0.4em] left-2"
+              src="left.png"
+            />{" "}
             <img
               className="absolute h-[100px]  bottom-[-25px] left-5"
               src="bunny.png"
             />
             <img
-              className="absolute h-5  top-[0.4em] right-2"
+              onClick={slideRight}
+              className="absolute h-5   top-[0.4em] cursor-pointer right-2"
               src="right.png"
             />
           </div>
@@ -51,142 +118,47 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="mt-20 w-[100vw] flex justify-center items-center">
-        <div className="bg-white rounded-3xl w-[500px]  border-[#7645d9] border-[2px] border-b-[4px] mb-4">
-          <div
-            style={{ justifyContent: "space-between" }}
-            className=" flex p-5"
-          >
-            <div className="font-extrabold text-[#7645d9]">LIVE</div>
-            <div className="text-[#7645d9]">#218486</div>
-          </div>
-          <div className="flex">
-            <div className="bg-[#7645d9] w-[80%] h-3 mb-5"></div>
-            <div className="bg-[#eeeaf4] w-[20%] h-3 mb-5"></div>
-          </div>
-          <div className="relative">
-            <div className="flex justify-center items-center">
-              <img className="w-[300px]" src="uptriangle.png"></img>
-            </div>
-            <div className="absolute z-10 top-0 flex justify-center items-center w-[100%] h-[100%] flex-col">
-              <div className="text-[#32cea8] font-extrabold text-xl mt-2">
-                UP
-              </div>
-              <div className="">
-                <span className="text-[#7f74ad] text-lg font-bold">2.15x</span>{" "}
-                <span className="text-[#876cb2] text-lg">Payout</span>
-              </div>
-            </div>
-          </div>
-          <div className="w-full flex justify-center items-center">
-            <div className="bg-white rounded-3xl w-[400px]  border-[#ed4b9e] border-[2px]">
-              <div className="p-5  ">
-                <span className=" text-[#7f74ad] text-md font-bold ">
-                  LAST PRICE
-                </span>{" "}
-                <div
-                  style={{ justifyContent: "space-between" }}
-                  className="flex mt-2 justify-center items-center"
-                >
-                  <div className="text-[#ed4b9e] font-extrabold text-2xl border-dotted border-b-[3px] border-[#8075AE]">
-                    $228.532
-                  </div>
-                  <div className="bg-[#ed4b9e] text-white p-2 rounded-md">
-                    $-0.4141
-                  </div>
-                </div>
-                <div
-                  style={{ justifyContent: "space-between" }}
-                  className="flex mt-3 justify-center items-center"
-                >
-                  <div>Locked Price</div>
-
-                  <div>$228.9473</div>
-                </div>
-                <div
-                  style={{ justifyContent: "space-between" }}
-                  className="flex mt-3 justify-center items-center font-extrabold text-xl"
-                >
-                  <div>Prize Pool</div>
-
-                  <div>8.5143</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="relative">
-            <div className="flex justify-center items-center ">
-              <img className="w-[300px]" src="downtriangle.png"></img>
-            </div>
-
-            <div className="absolute z-10 top-0 flex  items-center w-[100%] h-[100%] flex-col">
-              <div className="mt-1">
-                <span className="text-white text-lg font-bold">2.15x</span>{" "}
-                <span className="text-white text-lg">Payout</span>
-              </div>
-              <div className="text-white font-extrabold text-xl ">DOWN</div>
-            </div>
-          </div>
-        </div>
-        <div className="bg-white ml-6 rounded-3xl w-[500px]  border-[#7645d9] border-[2px] border-b-[4px] mb-4">
-          <div
-            style={{ justifyContent: "space-between" }}
-            className=" text-white rounded-t-2xl bg-[#7645d9] flex p-5 mb-5"
-          >
-            <div className="font-extrabold ">Next</div>
-            <div className="">#218487</div>
-          </div>
-          <div className="relative">
-            <div className="flex justify-center items-center">
-              <img className="w-[300px]" src="uptriangle.png"></img>
-            </div>
-            <div className="absolute z-10 top-0 flex justify-center items-center w-[100%] h-[100%] flex-col">
-              <div className="text-[#32cea8] font-extrabold text-xl mt-2">
-                UP
-              </div>
-              <div className="">
-                <span className="text-[#7f74ad] text-lg font-bold">1.3x</span>{" "}
-                <span className="text-[#876cb2] text-lg">Payout</span>
-              </div>
-            </div>
-          </div>
-          <div className="w-full flex justify-center items-center">
-            <div className="bg-white rounded-3xl w-[400px]  border-[#ed4b9e] border-[2px]">
-              <div className="p-5  ">
-                <div
-                  style={{ justifyContent: "space-between" }}
-                  className="flex mb-2 justify-center items-center font-extrabold text-xl"
-                >
-                  <div>Prize Pool</div>
-
-                  <div>2.3760 BNB</div>
-                </div>
-                <div className="bg-[#32cea8] text-white text-center p-4 rounded-2xl font-extrabold border-b-[2px] border-[#28877b]">
-                  Enter UP
-                </div>
-
-                <div className="bg-[#ed4b9e] mt-2 text-white text-center p-4 rounded-2xl font-extrabold border-b-[2px] border-[#be8fbb]">
-                  Enter DOWN
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="relative">
-            <div className="flex justify-center items-center ">
-              <img className="w-[300px]" src="graydowntriangle.png"></img>
-            </div>
-
-            <div className="absolute z-10 top-0 flex  items-center w-[100%] h-[100%] flex-col">
-              <div className="mt-1">
-                <span className="text-[#7f74ad] text-lg font-bold">3.84x</span>{" "}
-                <span className="text-[#876cb2] text-lg">Payout</span>
-              </div>
-              <div className="text-[#ed4b9e] font-extrabold text-xl ">DOWN</div>
-            </div>
-          </div>
-        </div>
+      <div
+        ref={sliderRef}
+        className="
+        no-scrollbar mt-5 px-8  pt-7 pb-4 flex items-center overflow-x-scroll scroll-smooth"
+      >
+        {mockData.map((item) => {
+          return (
+            <Fragment key={item.id}>
+              {item.type === "expired" ? (
+                <Expired
+                  id={item.id}
+                  uppayout={item.uppayout}
+                  downpayout={item.downpayout}
+                  ltpcl={item.ltpcl}
+                  lockedPrize={item.lockedPrize}
+                  prizePool={item.prizePool}
+                  change={item.change}
+                />
+              ) : item.type === "live" ? (
+                <Live
+                  id={item.id}
+                  uppayout={item.uppayout}
+                  downpayout={item.downpayout}
+                  ltpcl={item.ltpcl}
+                  lockedPrize={item.lockedPrize}
+                  prizePool={item.prizePool}
+                  change={item.change}
+                />
+              ) : item.type === "next" ? (
+                <Next
+                  id={item.id}
+                  uppayout={item.uppayout}
+                  downpayout={item.downpayout}
+                  prizePool={item.prizePool}
+                />
+              ) : (
+                <Later id={item.id} entry={item.entry} />
+              )}
+            </Fragment>
+          );
+        })}
       </div>
     </div>
   );
